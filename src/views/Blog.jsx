@@ -1,32 +1,12 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loader from "../components/Loader";
+import { useFetch } from "../hooks/useFetch";
 
 const Blog = () => {
   const { id } = useParams();
-  const [blog, setBlog] = useState();
-  const [loading, setLoading] = useState(false);
-
-  const getBlog = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(
-        `https://jsonplaceholder.typicode.com/posts/${id}`
-      );
-      const data = await res.json();
-
-      setBlog(data);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getBlog();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { data, loading } = useFetch(
+    `https://jsonplaceholder.typicode.com/posts/${id}`
+  );
 
   if (loading) {
     return <Loader />;
@@ -37,9 +17,9 @@ const Blog = () => {
       <h1 className="text-4xl font-semibold text-white my-5">Blogs</h1>
       <div className="bg-slate-700 rounded-md shadow p-4 my-5">
         <h1 className="capitalize text-3xl font-semibold border-b border-slate-300">
-          {blog?.title}
+          {data?.title}
         </h1>
-        <p className="mt-2 text-lg">{blog?.body}</p>
+        <p className="mt-2 text-lg">{data?.body}</p>
       </div>
     </div>
   );

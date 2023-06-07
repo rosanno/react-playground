@@ -6,6 +6,7 @@ import Blog from "../views/Blog";
 import NotFound from "../views/NotFound";
 import Products from "../views/Products";
 import About from "../views/About";
+import Product from "../views/Product";
 
 export const router = createBrowserRouter([
   {
@@ -27,11 +28,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "/products",
-        element: <Products />
+        element: <Products />,
+      },
+      {
+        path: "/product/:id",
+        element: <Product />,
       },
       {
         path: "/about",
-        element: <About />
+        element: <About />,
       },
       {
         path: "*",

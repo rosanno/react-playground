@@ -4,7 +4,7 @@ const Navbar = () => {
   const { pathname } = useLocation();
 
   return (
-    <div className="bg-slate-800 shadow-md">
+    <div className="bg-slate-800 shadow-md fixed inset-x-0 top-0">
       <nav className="flex items-center justify-between space-x-9 py-4 w-full max-w-[1200px] mx-auto">
         <span className="text-2xl font-semibold">React Playground</span>
         <ul className="flex space-x-6">

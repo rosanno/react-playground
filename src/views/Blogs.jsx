@@ -1,28 +1,11 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
+import { useFetch } from "../hooks/useFetch";
 
 const Blogs = () => {
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const getBlogs = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-      const data = await res.json();
-
-      setBlogs(data);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getBlogs();
-  }, []);
+  const { data, loading } = useFetch(
+    "https://jsonplaceholder.typicode.com/posts"
+  );
 
   if (loading) {
     return <Loader />;
@@ -31,7 +14,7 @@ const Blogs = () => {
   return (
     <div className="w-full max-w-[1200px] mx-auto mt-10">
       <h1 className="text-4xl font-semibold text-white my-5">Blogs</h1>
-      {blogs.map((blog) => (
+      {data.map((blog) => (
         <div key={blog.id} className="bg-slate-700 rounded-md shadow p-4 my-3">
           <Link to={`/blog/${blog.id}`}>
             <h1 className="capitalize underline">{blog.title}</h1>
